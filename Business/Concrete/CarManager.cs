@@ -28,7 +28,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult("Hata");
             }
-            
         }
 
         public IResult Delete(Car car)
