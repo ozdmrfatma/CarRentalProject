@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,18 +21,9 @@ namespace Business.Concrete
         }
 
 
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            var context = new ValidationContext<Car>(car);
-            CarValidator carValidator = new CarValidator();
-            var result = carValidator.Validate(context);
-            if (!result.IsValid)
-            {
-                throw new ValidationException(result.Errors);
-            }
-
-
             _carDal.Add(car);
             return new SuccessResult("Araba ekleme işlemi başarılı");
         }
